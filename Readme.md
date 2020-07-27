@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Лидия Захарова](https://up.htmlacademy.ru/ecmascript/12/user/1032465).
-* Наставник: `Неизвестно`.
+* Наставник: Кексоид.
 
 ---
 

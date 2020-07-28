@@ -3,6 +3,10 @@
 const FILM_COUNT = 5;
 const FILM_COUNT_EXTRA = 2;
 
+const header = document.querySelector(`.header`);
+const main = document.querySelector(`.main`);
+const footer = document.querySelector(`.footer`);
+
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
@@ -108,11 +112,9 @@ const createStatisticsTemplate = () => {
 }
 
 // Рендерим шапку
-const header = document.querySelector(`.header`);
 render(header, createProfileTemplate(), `beforeend`);
 
 // Рендерим мейн
-const main = document.querySelector(`.main`);
 render(main, createNavigationTemplate(), `beforeend`);
 render(main, createSortTemplate(), `beforeend`);
 render(main, createFilmsTemplate(), `beforeend`);
@@ -142,5 +144,4 @@ for (const filmsListExtra of filmsListExtras) {
 }
 
 // Рендерим футер
-const footer = document.querySelector(`.footer`);
 render(footer, createStatisticsTemplate(), `beforeend`);

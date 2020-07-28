@@ -134,7 +134,7 @@ for (let i = 0; i < FILM_COUNT; i++) {
 }
 
 const filmsListExtras = films.querySelectorAll(`.films-list--extra`);
-for (let filmsListExtra of filmsListExtras) {
+for (const filmsListExtra of filmsListExtras) {
   const container = filmsListExtra.querySelector(`.films-list__container`);
   for (let i = 0; i < FILM_COUNT_EXTRA; i++) {
     render(container, createFilmCardTemplate(), `beforeend`);

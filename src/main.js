@@ -1,11 +1,11 @@
 "use strict";
 
-const FILM_COUNT = 5;
-const FILM_COUNT_EXTRA = 2;
+const FILM_COUNTER = 5;
+const FILM_EXTRA_COUNTER = 2;
 
-const header = document.querySelector(`.header`);
-const main = document.querySelector(`.main`);
-const footer = document.querySelector(`.footer`);
+const headerElement = document.querySelector(`.header`);
+const mainElement = document.querySelector(`.main`);
+const footerElement = document.querySelector(`.footer`);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -47,8 +47,7 @@ const createSortTemplate = () => {
 
 const createFilmsTemplate = () => {
   return (
-    `<section class="films">
-    </section>`
+    `<section class="films"></section>`
   );
 };
 
@@ -56,10 +55,7 @@ const createFilmsListTemplate = () => {
   return (
     `<section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
-
-      <div class="films-list__container">
-      </div>
-
+      <div class="films-list__container"></div>
     </section>`
   );
 };
@@ -74,9 +70,7 @@ const createFilmsListExtraTemplate = (heading) => {
   return (
     `<section class="films-list--extra">
       <h2 class="films-list__title">${heading}</h2>
-
-      <div class="films-list__container">
-      </div>
+      <div class="films-list__container"></div>
     </section>`
   );
 };
@@ -112,36 +106,36 @@ const createStatisticsTemplate = () => {
 }
 
 // Рендерим шапку
-render(header, createProfileTemplate(), `beforeend`);
+render(headerElement, createProfileTemplate(), `beforeend`);
 
 // Рендерим мейн
-render(main, createNavigationTemplate(), `beforeend`);
-render(main, createSortTemplate(), `beforeend`);
-render(main, createFilmsTemplate(), `beforeend`);
+render(mainElement, createNavigationTemplate(), `beforeend`);
+render(mainElement, createSortTemplate(), `beforeend`);
+render(mainElement, createFilmsTemplate(), `beforeend`);
 
-// Рендерим список фильмов
-const films = main.querySelector(`.films`);
-render(films, createFilmsListTemplate(), `beforeend`);
+// Рендерим списки фильмов
+const filmsElement = mainElement.querySelector(`.films`);
+render(filmsElement, createFilmsListTemplate(), `beforeend`);
 
-const filmsList = main.querySelector(`.films-list`);
-render(filmsList, createLoadMoreTemplate(), `beforeend`);
+const filmsListElement = mainElement.querySelector(`.films-list`);
+render(filmsListElement, createLoadMoreTemplate(), `beforeend`);
 
-render(films, createFilmsListExtraTemplate(`Top rated`), `beforeend`);
-render(films, createFilmsListExtraTemplate(`Most commented`), `beforeend`);
+render(filmsElement, createFilmsListExtraTemplate(`Top rated`), `beforeend`);
+render(filmsElement, createFilmsListExtraTemplate(`Most commented`), `beforeend`);
 
 // Рендерим карточки с фильмами
-const filmsListMain = filmsList.querySelector(`.films-list__container`);
-for (let i = 0; i < FILM_COUNT; i++) {
-  render(filmsListMain, createFilmCardTemplate(), `beforeend`);
+const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
+for (let i = 0; i < FILM_COUNTER; i++) {
+  render(filmsListMainElement, createFilmCardTemplate(), `beforeend`);
 }
 
-const filmsListExtras = films.querySelectorAll(`.films-list--extra`);
-for (const filmsListExtra of filmsListExtras) {
-  const container = filmsListExtra.querySelector(`.films-list__container`);
-  for (let i = 0; i < FILM_COUNT_EXTRA; i++) {
-    render(container, createFilmCardTemplate(), `beforeend`);
+const filmsListExtraElements = filmsElement.querySelectorAll(`.films-list--extra`);
+for (const filmsListExtraElement of filmsListExtraElements) {
+  const containerElement = filmsListExtraElement.querySelector(`.films-list__container`);
+  for (let i = 0; i < FILM_EXTRA_COUNTER; i++) {
+    render(containerElement, createFilmCardTemplate(), `beforeend`);
   }
 }
 
 // Рендерим футер
-render(footer, createStatisticsTemplate(), `beforeend`);
+render(footerElement, createStatisticsTemplate(), `beforeend`);

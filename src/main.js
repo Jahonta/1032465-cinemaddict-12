@@ -66,7 +66,7 @@ const createLoadMoreTemplate = () => {
   );
 };
 
-const createFilmsListExtraTemplate = (heading) => {
+const createFilmsListExtraTemplate = (heading = `List Heading`) => {
   return (
     `<section class="films-list--extra">
       <h2 class="films-list__title">${heading}</h2>

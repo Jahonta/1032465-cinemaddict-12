@@ -1,7 +1,15 @@
 "use strict";
 
-const FILM_COUNTER = 5;
-const FILM_EXTRA_COUNTER = 2;
+const FilmsCounter = {
+  MAIN_LIST: 5,
+  EXTRA: 2
+};
+
+const ExtraHeading = {
+  TOP_RATED: `Top rated`,
+  MOST_COMMENTED: `Most commented`,
+  DEFAULT: `List Heading`
+};
 
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
@@ -66,7 +74,7 @@ const createLoadMoreTemplate = () => {
   );
 };
 
-const createFilmsListExtraTemplate = (heading = `List Heading`) => {
+const createFilmsListExtraTemplate = (heading = ExtraHeading.DEFAULT) => {
   return (
     `<section class="films-list--extra">
       <h2 class="films-list__title">${heading}</h2>
@@ -105,6 +113,7 @@ const createStatisticsTemplate = () => {
   );
 };
 
+/* eslint-disable */
 const createFilmDetailsTemplate = () => {
   return (
     `<section class="film-details">
@@ -278,6 +287,7 @@ const createFilmDetailsTemplate = () => {
     </section>`
   );
 };
+/* eslint-enable */
 
 // Рендерим шапку
 render(headerElement, createProfileTemplate(), `beforeend`);
@@ -294,25 +304,23 @@ render(filmsElement, createFilmsListTemplate(), `beforeend`);
 const filmsListElement = mainElement.querySelector(`.films-list`);
 render(filmsListElement, createLoadMoreTemplate(), `beforeend`);
 
-render(filmsElement, createFilmsListExtraTemplate(`Top rated`), `beforeend`);
-render(filmsElement, createFilmsListExtraTemplate(`Most commented`), `beforeend`);
+render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.TOP_RATED), `beforeend`);
+render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.MOST_COMMENTED), `beforeend`);
 
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
-for (let i = 0; i < FILM_COUNTER; i++) {
+for (let i = 0; i < FilmsCounter.MAIN_LIST; i++) {
   render(filmsListMainElement, createFilmCardTemplate(), `beforeend`);
 }
 
 const filmsListExtraElements = filmsElement.querySelectorAll(`.films-list--extra`);
-for (const filmsListExtraElement of filmsListExtraElements) {
+filmsListExtraElements.forEach((filmsListExtraElement) => {
   const containerElement = filmsListExtraElement.querySelector(`.films-list__container`);
-  for (let i = 0; i < FILM_EXTRA_COUNTER; i++) {
+  for (let i = 0; i < FilmsCounter.EXTRA; i++) {
     render(containerElement, createFilmCardTemplate(), `beforeend`);
   }
 }
+);
 
 // Рендерим футер
 render(footerElement, createStatisticsTemplate(), `beforeend`);
-
-// Рендерим попап
-render(footerElement, createFilmDetailsTemplate(), `afterend`);

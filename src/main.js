@@ -7,6 +7,7 @@ import {createLoadMoreTemplate} from "./view/more-button.js";
 import {createFilmsListExtraTemplate} from "./view/films-list-extra.js";
 import {createFilmCardTemplate} from "./view/film-card.js";
 import {createStatisticsTemplate} from "./view/statistics.js";
+import {generateFilm} from "./mock/film.js";
 
 const FilmsCounter = {
   MAIN_LIST: 5,
@@ -18,6 +19,7 @@ const ExtraHeading = {
   MOST_COMMENTED: `Most commented`
 };
 
+const films = new Array(FilmsCounter.MAIN_LIST).fill().map(generateFilm);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
@@ -47,14 +49,14 @@ render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.MOST_COMMENTED), 
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
 for (let i = 0; i < FilmsCounter.MAIN_LIST; i++) {
-  render(filmsListMainElement, createFilmCardTemplate(), `beforeend`);
+  render(filmsListMainElement, createFilmCardTemplate(films[i]), `beforeend`);
 }
 
 const filmsListExtraElements = filmsElement.querySelectorAll(`.films-list--extra`);
 filmsListExtraElements.forEach((filmsListExtraElement) => {
   const containerElement = filmsListExtraElement.querySelector(`.films-list__container`);
   for (let i = 0; i < FilmsCounter.EXTRA; i++) {
-    render(containerElement, createFilmCardTemplate(), `beforeend`);
+    render(containerElement, createFilmCardTemplate(films[i]), `beforeend`);
   }
 }
 );

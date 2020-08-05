@@ -1,4 +1,4 @@
-const EMOTIONS = [`smile`, `sleeping`, `puke`, `angry`];
+const EMOJIS = [`smile`, `sleeping`, `puke`, `angry`];
 const LINES = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   `Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra.`,
@@ -43,6 +43,8 @@ const POSTERS = [
   `images/posters/the-man-with-the-golden-arm.jpg`
 ];
 
+const GENRES = [`Cartoon`, `Comedy`, `Drama`, `Western`, `Musical`];
+
 const NAMES = [`Anna`, `Betty`, `Chris`, `David`, `Edith`, `Frank`, `George`];
 
 const getRandomInteger = (a = 0, b = 1) => {
@@ -53,14 +55,14 @@ const getRandomInteger = (a = 0, b = 1) => {
 };
 
 const generateComment = () => {
-  const message = LINES[getRandomInteger(0, LINES.length - 1)];
-  const emotion = EMOTIONS[getRandomInteger(0, EMOTIONS.length - 1)];
+  const text = LINES[getRandomInteger(0, LINES.length - 1)];
+  const emoji = EMOJIS[getRandomInteger(0, EMOJIS.length - 1)];
 
   return {
-    emotion,
+    emoji,
     date: generateDate(new Date(2020, 0, 1), new Date()),
     author: NAMES[getRandomInteger(0, NAMES.length - 1)],
-    message
+    text
   };
 };
 
@@ -77,6 +79,7 @@ const generateDescription = () => {
   return description;
 };
 
+
 export const generateFilm = () => {
   const comments = new Array(getRandomInteger(0, 5)).fill().map(generateComment);
   return {
@@ -86,13 +89,13 @@ export const generateFilm = () => {
     description: generateDescription(),
     rating: getRandomInteger(1, 10),
     director: `director`,
-    writers: `writers`,
-    cast: `cast`,
-    date: generateDate(new Date(1900, 0, 1), new Date(2020, 0, 1)),
-    duration: getRandomInteger(5, 360),
+    writers: [`Some`, `writers`],
+    actors: [`Some`, `Stars`],
+    release: generateDate(new Date(1900, 0, 1), new Date(2020, 0, 1)),
+    runtime: getRandomInteger(5, 360),
     country: `country`,
-    genres: [`Epic`],
-    age: `age`,
+    genres: [GENRES[getRandomInteger(0, GENRES.length - 1)]],
+    age: `18+`,
     comments,
     inWatchlist: Boolean(getRandomInteger(0, 1)),
     isWatched: Boolean(getRandomInteger(0, 1)),

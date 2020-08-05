@@ -7,6 +7,7 @@ import {createLoadMoreTemplate} from "./view/more-button.js";
 import {createFilmsListExtraTemplate} from "./view/films-list-extra.js";
 import {createFilmCardTemplate} from "./view/film-card.js";
 import {createStatisticsTemplate} from "./view/statistics.js";
+import {createFilmDetailsTemplate} from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
 
 const FilmsCounter = {
@@ -19,7 +20,7 @@ const ExtraHeading = {
   MOST_COMMENTED: `Most commented`
 };
 
-const films = new Array(FilmsCounter.MAIN_LIST).fill().map(generateFilm);
+const films = new Array(20).fill().map(generateFilm);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
@@ -63,3 +64,6 @@ filmsListExtraElements.forEach((filmsListExtraElement) => {
 
 // Рендерим футер
 render(footerElement, createStatisticsTemplate(), `beforeend`);
+
+// Рендерим попап
+render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);

@@ -19,7 +19,6 @@ const TITLES = [
   `Форрест Гамп`,
   `Начало`
 ];
-
 const ORIGINAL_TITLES = [
   `The Shawshank Redemption`,
   `The Godfather`,
@@ -32,7 +31,6 @@ const ORIGINAL_TITLES = [
   `Forrest Gump`,
   `Inception`
 ];
-
 const POSTERS = [
   `images/posters/the-dance-of-life.jpg`,
   `images/posters/made-for-each-other.png`,
@@ -42,10 +40,10 @@ const POSTERS = [
   `images/posters/the-great-flamarion.jpg`,
   `images/posters/the-man-with-the-golden-arm.jpg`
 ];
-
 const GENRES = [`Cartoon`, `Comedy`, `Drama`, `Western`, `Musical`];
-
-const NAMES = [`Anna`, `Betty`, `Chris`, `David`, `Edith`, `Frank`, `George`];
+const NAMES = [`Anna Adams`, `Betty Brown`, `Chris Costner`, `David Doe`, `Edith Edisson`, `Frank Farmer`, `George Gatsby`];
+const COUNTRIES = [`USA`, `UK`, `USSR`];
+const AGES = [`0+`, `6+`, `12+`, `18+`];
 
 const getRandomInteger = (a = 0, b = 1) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -53,6 +51,10 @@ const getRandomInteger = (a = 0, b = 1) => {
 
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
+
+function generateDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
 
 const generateComment = () => {
   const text = LINES[getRandomInteger(0, LINES.length - 1)];
@@ -66,10 +68,6 @@ const generateComment = () => {
   };
 };
 
-function generateDate(start, end) {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
-
 const generateDescription = () => {
   const descriptionLength = getRandomInteger(1, 5);
   let description = new Array(descriptionLength).fill(``).reduce((acc) => {
@@ -82,25 +80,25 @@ const generateDescription = () => {
 
 export const generateFilm = () => {
   const comments = new Array(getRandomInteger(0, 5)).fill().map(generateComment);
+  const writers = new Array(2).fill().map(() => NAMES[getRandomInteger(0, NAMES.length - 1)]);
+  const actors = new Array(3).fill().map(() => NAMES[getRandomInteger(0, NAMES.length - 1)]);
   return {
     title: TITLES[getRandomInteger(0, TITLES.length - 1)],
     originalTitle: ORIGINAL_TITLES[getRandomInteger(0, ORIGINAL_TITLES.length - 1)],
     poster: POSTERS[getRandomInteger(0, POSTERS.length - 1)],
     description: generateDescription(),
     rating: getRandomInteger(1, 10),
-    director: `director`,
-    writers: [`Some`, `writers`],
-    actors: [`Some`, `Stars`],
+    director: NAMES[getRandomInteger(0, NAMES.length - 1)],
+    writers,
+    actors,
     release: generateDate(new Date(1900, 0, 1), new Date(2020, 0, 1)),
     runtime: getRandomInteger(5, 360),
-    country: `country`,
+    country: COUNTRIES[getRandomInteger(0, COUNTRIES.length - 1)],
     genres: [GENRES[getRandomInteger(0, GENRES.length - 1)]],
-    age: `18+`,
+    age: AGES[getRandomInteger(0, AGES.length - 1)],
     comments,
     inWatchlist: Boolean(getRandomInteger(0, 1)),
     isWatched: Boolean(getRandomInteger(0, 1)),
     isFavorite: Boolean(getRandomInteger(0, 1))
   };
 };
-
-

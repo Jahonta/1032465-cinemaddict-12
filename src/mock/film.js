@@ -1,4 +1,5 @@
-const EMOJIS = [`smile`, `sleeping`, `puke`, `angry`];
+import {EMOJIS} from "../const.js";
+
 const LINES = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
   `Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra.`,

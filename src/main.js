@@ -1,3 +1,4 @@
+import {render} from "./utils.js";
 import {createProfileTemplate} from "./view/profile.js";
 import {createNavigationTemplate} from "./view/navigation.js";
 import {createSortTemplate} from "./view/sort.js";
@@ -25,9 +26,7 @@ const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
+
 
 // Рендерим шапку
 render(headerElement, createProfileTemplate(), `beforeend`);

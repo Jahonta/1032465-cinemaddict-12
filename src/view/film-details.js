@@ -1,4 +1,5 @@
-const EMOJIS = [`smile`, `sleeping`, `puke`, `angry`];
+import {EMOJIS} from "../const.js";
+
 const createGenresTemplate = (genres) => {
   return (
     `<td class="film-details__term">${genres.length > 1 ? `Genres` : `Genre`}</td>

@@ -10,6 +10,7 @@ import {createFilmCardTemplate} from "./view/film-card.js";
 import {createStatisticsTemplate} from "./view/statistics.js";
 import {createFilmDetailsTemplate} from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
+import {generateFilter} from "./mock/filter.js";
 
 const FilmsCounter = {
   MAIN_LIST: 5,
@@ -22,6 +23,7 @@ const ExtraHeading = {
 };
 
 const films = new Array(20).fill().map(generateFilm);
+const filters = generateFilter(films);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
@@ -30,7 +32,7 @@ const footerElement = document.querySelector(`.footer`);
 render(headerElement, createProfileTemplate());
 
 // Рендерим мейн
-render(mainElement, createNavigationTemplate());
+render(mainElement, createNavigationTemplate(filters));
 render(mainElement, createSortTemplate());
 render(mainElement, createFilmsTemplate());
 

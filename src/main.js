@@ -26,43 +26,41 @@ const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
 
-
-
 // Рендерим шапку
-render(headerElement, createProfileTemplate(), `beforeend`);
+render(headerElement, createProfileTemplate());
 
 // Рендерим мейн
-render(mainElement, createNavigationTemplate(), `beforeend`);
-render(mainElement, createSortTemplate(), `beforeend`);
-render(mainElement, createFilmsTemplate(), `beforeend`);
+render(mainElement, createNavigationTemplate());
+render(mainElement, createSortTemplate());
+render(mainElement, createFilmsTemplate());
 
 // Рендерим списки фильмов
 const filmsElement = mainElement.querySelector(`.films`);
-render(filmsElement, createFilmsListTemplate(), `beforeend`);
+render(filmsElement, createFilmsListTemplate());
 
 const filmsListElement = mainElement.querySelector(`.films-list`);
-render(filmsListElement, createLoadMoreTemplate(), `beforeend`);
+render(filmsListElement, createLoadMoreTemplate());
 
-render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.TOP_RATED), `beforeend`);
-render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.MOST_COMMENTED), `beforeend`);
+render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.TOP_RATED));
+render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.MOST_COMMENTED));
 
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
 for (let i = 0; i < FilmsCounter.MAIN_LIST; i++) {
-  render(filmsListMainElement, createFilmCardTemplate(films[i]), `beforeend`);
+  render(filmsListMainElement, createFilmCardTemplate(films[i]));
 }
 
 const filmsListExtraElements = filmsElement.querySelectorAll(`.films-list--extra`);
 filmsListExtraElements.forEach((filmsListExtraElement) => {
   const containerElement = filmsListExtraElement.querySelector(`.films-list__container`);
   for (let i = 0; i < FilmsCounter.EXTRA; i++) {
-    render(containerElement, createFilmCardTemplate(films[i]), `beforeend`);
+    render(containerElement, createFilmCardTemplate(films[i]));
   }
 }
 );
 
 // Рендерим футер
-render(footerElement, createStatisticsTemplate(), `beforeend`);
+render(footerElement, createStatisticsTemplate());
 
 // Рендерим попап
-render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);
+// render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);

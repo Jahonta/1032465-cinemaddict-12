@@ -14,6 +14,7 @@ import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 
 const FILMS_COUNT = 30;
+const FILMS_COUNT_PER_STEP = 5;
 const FILMS_EXTRA_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
@@ -37,14 +38,32 @@ const filmsElement = mainElement.querySelector(`.films`);
 render(filmsElement, createFilmsListTemplate());
 
 const filmsListElement = mainElement.querySelector(`.films-list`);
-render(filmsListElement, createLoadMoreTemplate());
+if (films.length > FILMS_COUNT_PER_STEP) {
+  render(filmsListElement, createLoadMoreTemplate());
+
+  const loadMoreButton = filmsListElement.querySelector(`.films-list__show-more`);
+  let renderedFilmsCount = FILMS_COUNT_PER_STEP;
+  loadMoreButton.addEventListener(`click`, (evt) => {
+    evt.preventDefault();
+    films
+    .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
+    .forEach((film) => render(filmsListMainElement, createFilmCardTemplate(film), `beforeend`));
+
+    renderedFilmsCount += FILMS_COUNT_PER_STEP;
+
+    if (renderedFilmsCount >= films.length) {
+      loadMoreButton.remove();
+    }
+  });
+}
+
 
 render(filmsElement, createTopRatedFilmsTemplate(films));
 render(filmsElement, createMostCommentedFilmsTemplate(films));
 
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
-for (let i = 0; i < FILMS_COUNT; i++) {
+for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
   render(filmsListMainElement, createFilmCardTemplate(films[i]));
 }
 

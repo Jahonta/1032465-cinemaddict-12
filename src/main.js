@@ -13,7 +13,7 @@ import {createFilmDetailsTemplate} from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 
-const FILMS_COUNT = 20;
+const FILMS_COUNT = 30;
 const FILMS_EXTRA_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
@@ -25,7 +25,7 @@ const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
 
 // Рендерим шапку
-render(headerElement, createProfileTemplate());
+render(headerElement, createProfileTemplate(filters.history));
 
 // Рендерим мейн
 render(mainElement, createNavigationTemplate(filters));
@@ -55,7 +55,7 @@ for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
 }
 
 // Рендерим футер
-render(footerElement, createStatisticsTemplate());
+render(footerElement, createStatisticsTemplate(films.length));
 
 // Рендерим попап
 // render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);

@@ -5,24 +5,20 @@ import {createSortTemplate} from "./view/sort.js";
 import {createFilmsTemplate} from "./view/films.js";
 import {createFilmsListTemplate} from "./view/films-list.js";
 import {createLoadMoreTemplate} from "./view/more-button.js";
-import {createFilmsListExtraTemplate} from "./view/films-list-extra.js";
+import {createTopRatedFilmsTemplate} from "./view/top-rated-films.js";
+import {createMostCommentedFilmsTemplate} from "./view/most-commented-films.js";
 import {createFilmCardTemplate} from "./view/film-card.js";
 import {createStatisticsTemplate} from "./view/statistics.js";
 import {createFilmDetailsTemplate} from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 
-const FilmsCounter = {
-  MAIN_LIST: 5,
-  EXTRA: 2
-};
+const FILMS_COUNT = 20;
+const FILMS_EXTRA_COUNT = 2;
 
-const ExtraHeading = {
-  TOP_RATED: `Top rated`,
-  MOST_COMMENTED: `Most commented`
-};
-
-const films = new Array(20).fill().map(generateFilm);
+const films = new Array(FILMS_COUNT).fill().map(generateFilm);
+const filmsByRating = [...films].sort((a, b) => a.rating < b.rating);
+const filmsByComments = [...films].sort((a, b) => a.comments.length < b.comments.length);
 const filters = generateFilter(films);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
@@ -43,23 +39,20 @@ render(filmsElement, createFilmsListTemplate());
 const filmsListElement = mainElement.querySelector(`.films-list`);
 render(filmsListElement, createLoadMoreTemplate());
 
-render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.TOP_RATED));
-render(filmsElement, createFilmsListExtraTemplate(ExtraHeading.MOST_COMMENTED));
+render(filmsElement, createTopRatedFilmsTemplate(films));
+render(filmsElement, createMostCommentedFilmsTemplate(films));
 
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
-for (let i = 0; i < FilmsCounter.MAIN_LIST; i++) {
+for (let i = 0; i < FILMS_COUNT; i++) {
   render(filmsListMainElement, createFilmCardTemplate(films[i]));
 }
 
-const filmsListExtraElements = filmsElement.querySelectorAll(`.films-list--extra`);
-filmsListExtraElements.forEach((filmsListExtraElement) => {
-  const containerElement = filmsListExtraElement.querySelector(`.films-list__container`);
-  for (let i = 0; i < FilmsCounter.EXTRA; i++) {
-    render(containerElement, createFilmCardTemplate(films[i]));
-  }
+const [topRatedElement, mostCommentedElement] = filmsElement.querySelectorAll(`.films-list--extra .films-list__container`);
+for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
+  render(topRatedElement, createFilmCardTemplate(filmsByRating[i]));
+  render(mostCommentedElement, createFilmCardTemplate(filmsByComments[i]));
 }
-);
 
 // Рендерим футер
 render(footerElement, createStatisticsTemplate());

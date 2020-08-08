@@ -46,17 +46,14 @@ if (films.length > FILMS_COUNT_PER_STEP) {
   loadMoreButton.addEventListener(`click`, (evt) => {
     evt.preventDefault();
     films
-    .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
-    .forEach((film) => render(filmsListMainElement, createFilmCardTemplate(film), `beforeend`));
-
+      .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
+      .forEach((film) => render(filmsListMainElement, createFilmCardTemplate(film)));
     renderedFilmsCount += FILMS_COUNT_PER_STEP;
-
     if (renderedFilmsCount >= films.length) {
       loadMoreButton.remove();
     }
   });
 }
-
 
 render(filmsElement, createTopRatedFilmsTemplate(films));
 render(filmsElement, createMostCommentedFilmsTemplate(films));
@@ -77,4 +74,4 @@ for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
 render(footerElement, createStatisticsTemplate(films.length));
 
 // Рендерим попап
-// render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);
+render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);

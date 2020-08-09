@@ -103,8 +103,8 @@ export const generateFilm = () => {
     genres: generateGenres(),
     age: ages[getRandomInteger(0, ages.length - 1)],
     comments,
-    inWatchlist: Boolean(getRandomInteger(0, 1)),
-    isWatched: Boolean(getRandomInteger(0, 1)),
-    isFavorite: Boolean(getRandomInteger(0, 1))
+    inWatchlist: Boolean(getRandomInteger()),
+    isWatched: Boolean(getRandomInteger()),
+    isFavorite: Boolean(getRandomInteger())
   };
 };

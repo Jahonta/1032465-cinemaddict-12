@@ -1,7 +1,9 @@
+import {MAX_DESCRIPTION_LENGTH} from "../const.js";
+
 export const createFilmCardTemplate = (film) => {
   const {title, rating, release, runtime, genres, poster, description, comments, inWatchlist, isWatched, isFavorite} = film;
 
-  const shortenedDescription = description.length > 140 ? `${description.substr(0, 139)}…` : description;
+  const shortenedDescription = description.length > MAX_DESCRIPTION_LENGTH ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}…` : description;
 
   const addActiveClass = (flag) => flag ? `film-card__controls-item--active` : ``;
 

@@ -13,7 +13,7 @@ import {createFilmDetailsTemplate} from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 
-const FILMS_COUNT = 30;
+const FILMS_COUNT = 20;
 const FILMS_COUNT_PER_STEP = 5;
 const FILMS_EXTRA_COUNT = 2;
 
@@ -74,4 +74,4 @@ for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
 render(footerElement, createStatisticsTemplate(films.length));
 
 // Рендерим попап
-render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);
+// render(footerElement, createFilmDetailsTemplate(films[0]), `afterend`);

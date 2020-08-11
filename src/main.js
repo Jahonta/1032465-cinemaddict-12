@@ -25,6 +25,27 @@ const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
 
+const renderFilm = (filmListElement, film) => {
+  const filmCardComponent = new FilmCardView(film);
+  const filmDetailsComponent = new FilmDetailsView(film);
+
+  const openPopup = () => {
+    filmListElement.appendChild(filmDetailsComponent.getElement());
+  };
+
+  const closePopup = () => {
+    filmListElement.removeChild(filmDetailsComponent.getElement());
+  };
+
+  filmCardComponent.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, openPopup);
+  filmCardComponent.getElement().querySelector(`.film-card__title`).addEventListener(`click`, openPopup);
+  filmCardComponent.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, openPopup);
+  filmDetailsComponent.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, closePopup);
+
+  render(filmListElement, filmCardComponent.getElement());
+};
+
+
 // Рендерим шапку
 render(headerElement, new ProfileView(filters.history).getElement());
 
@@ -47,7 +68,7 @@ if (films.length > FILMS_COUNT_PER_STEP) {
     evt.preventDefault();
     films
       .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
-      .forEach((film) => render(filmsListMainElement, new FilmCardView(film).getElement()));
+      .forEach((film) => renderFilm(filmsListMainElement, film));
     renderedFilmsCount += FILMS_COUNT_PER_STEP;
     if (renderedFilmsCount >= films.length) {
       loadMoreButton.remove();
@@ -61,17 +82,14 @@ render(filmsElement, new MostCommentedFilmsView().getElement());
 // Рендерим карточки с фильмами
 const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
 for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
-  render(filmsListMainElement, new FilmCardView(films[i]).getElement());
+  renderFilm(filmsListMainElement, films[i]);
 }
 
 const [topRatedElement, mostCommentedElement] = filmsElement.querySelectorAll(`.films-list--extra .films-list__container`);
 for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
-  render(topRatedElement, new FilmCardView(filmsByRating[i]).getElement());
-  render(mostCommentedElement, new FilmCardView(filmsByComments[i]).getElement());
+  renderFilm(topRatedElement, filmsByRating[i]);
+  renderFilm(mostCommentedElement, filmsByComments[i]);
 }
 
 // Рендерим футер
 render(footerElement, new StatisticsView(films.length).getElement());
-
-// Рендерим попап
-render(footerElement, new FilmDetailsView(films[0]).getElement());

@@ -1,4 +1,6 @@
-export const createProfileTemplate = (watchedFilms) => {
+import {createElement} from "../utils.js";
+
+const createProfileTemplate = (watchedFilms) => {
   let rank = ``;
   switch (true) {
     case watchedFilms >= 1 && watchedFilms <= 10:
@@ -10,9 +12,6 @@ export const createProfileTemplate = (watchedFilms) => {
     case watchedFilms >= 21:
       rank = `movie buff`;
       break;
-    default:
-      rank = ``;
-      break;
   }
 
   return (
@@ -23,3 +22,26 @@ export const createProfileTemplate = (watchedFilms) => {
     `
   );
 };
+
+export default class Profile {
+  constructor(watchedFilms) {
+    this._element = null;
+    this._watchedFilms = watchedFilms;
+  }
+
+  getTemplate() {
+    return createProfileTemplate(this._watchedFilms);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

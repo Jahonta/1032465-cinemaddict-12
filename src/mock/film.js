@@ -1,4 +1,5 @@
 import {EMOJIS} from "../const.js";
+import {getRandomInteger, generateDate} from "../utils.js";
 
 const lines = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -46,16 +47,6 @@ const names = [`Anna Adams`, `Betty Brown`, `Chris Costner`, `David Doe`, `Edith
 const countries = [`USA`, `UK`, `USSR`];
 const ages = [`0+`, `6+`, `12+`, `18+`];
 
-const getRandomInteger = (a = 0, b = 1) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-
-  return Math.floor(lower + Math.random() * (upper - lower + 1));
-};
-
-function generateDate(start, end) {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-}
 
 const generateComment = () => {
   const text = lines[getRandomInteger(0, lines.length - 1)];

@@ -10,6 +10,7 @@ import MostCommentedFilmsView from "./view/most-commented-films.js";
 import FilmCardView from "./view/film-card.js";
 import StatisticsView from "./view/statistics.js";
 import FilmDetailsView from "./view/film-details.js";
+import NoFilmView from "./view/no-film.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
 import {generateComments} from "./mock/comment.js";
@@ -70,37 +71,41 @@ const filmsElement = mainElement.querySelector(`.films`);
 render(filmsElement, new FilmsListView().getElement());
 
 const filmsListElement = mainElement.querySelector(`.films-list`);
-if (films.length > FILMS_COUNT_PER_STEP) {
-  render(filmsListElement, new LoadMoreButtonView().getElement());
+if (films.length === 0) {
+  render(filmsListElement, new NoFilmView().getElement());
+} else {
+  if (films.length > FILMS_COUNT_PER_STEP) {
+    render(filmsListElement, new LoadMoreButtonView().getElement());
 
-  const loadMoreButton = filmsListElement.querySelector(`.films-list__show-more`);
-  let renderedFilmsCount = FILMS_COUNT_PER_STEP;
-  loadMoreButton.addEventListener(`click`, (evt) => {
-    evt.preventDefault();
-    films
+    const loadMoreButton = filmsListElement.querySelector(`.films-list__show-more`);
+    let renderedFilmsCount = FILMS_COUNT_PER_STEP;
+    loadMoreButton.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      films
       .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
       .forEach((film) => renderFilm(filmsListMainElement, film));
-    renderedFilmsCount += FILMS_COUNT_PER_STEP;
-    if (renderedFilmsCount >= films.length) {
-      loadMoreButton.remove();
-    }
-  });
+      renderedFilmsCount += FILMS_COUNT_PER_STEP;
+      if (renderedFilmsCount >= films.length) {
+        loadMoreButton.remove();
+      }
+    });
+  }
+
+  render(filmsElement, new TopRatedFilmsView().getElement());
+  render(filmsElement, new MostCommentedFilmsView().getElement());
+
+  // Рендерим карточки с фильмами
+  const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
+  for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
+    renderFilm(filmsListMainElement, films[i]);
+  }
+
+  const [topRatedElement, mostCommentedElement] = filmsElement.querySelectorAll(`.films-list--extra .films-list__container`);
+  for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
+    renderFilm(topRatedElement, films[i]);
+    renderFilm(mostCommentedElement, films[i]);
+  }
+
 }
-
-render(filmsElement, new TopRatedFilmsView().getElement());
-render(filmsElement, new MostCommentedFilmsView().getElement());
-
-// Рендерим карточки с фильмами
-const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
-for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
-  renderFilm(filmsListMainElement, films[i]);
-}
-
-const [topRatedElement, mostCommentedElement] = filmsElement.querySelectorAll(`.films-list--extra .films-list__container`);
-for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
-  renderFilm(topRatedElement, films[i]);
-  renderFilm(mostCommentedElement, films[i]);
-}
-
 // Рендерим футер
 render(footerElement, new StatisticsView(films.length).getElement());

@@ -12,22 +12,22 @@ import StatisticsView from "./view/statistics.js";
 import FilmDetailsView from "./view/film-details.js";
 import {generateFilm} from "./mock/film.js";
 import {generateFilter} from "./mock/filter.js";
+import {generateComments} from "./mock/comment.js";
 
 const FILMS_COUNT = 20;
 const FILMS_COUNT_PER_STEP = 5;
 const FILMS_EXTRA_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
-const filmsByRating = [...films].sort((a, b) => a.rating < b.rating);
-const filmsByComments = [...films].sort((a, b) => a.comments.length < b.comments.length);
 const filters = generateFilter(films);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
 
 const renderFilm = (filmListElement, film) => {
-  const filmCardComponent = new FilmCardView(film);
-  const filmDetailsComponent = new FilmDetailsView(film);
+  const comments = generateComments();
+  const filmCardComponent = new FilmCardView(film, comments.length);
+  const filmDetailsComponent = new FilmDetailsView(film, comments);
 
   const openPopup = () => {
     filmListElement.appendChild(filmDetailsComponent.getElement());
@@ -87,8 +87,8 @@ for (let i = 0; i < Math.min(films.length, FILMS_COUNT_PER_STEP); i++) {
 
 const [topRatedElement, mostCommentedElement] = filmsElement.querySelectorAll(`.films-list--extra .films-list__container`);
 for (let i = 0; i < FILMS_EXTRA_COUNT; i++) {
-  renderFilm(topRatedElement, filmsByRating[i]);
-  renderFilm(mostCommentedElement, filmsByComments[i]);
+  renderFilm(topRatedElement, films[i]);
+  renderFilm(mostCommentedElement, films[i]);
 }
 
 // Рендерим футер

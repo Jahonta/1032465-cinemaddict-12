@@ -1,8 +1,8 @@
 import {MAX_DESCRIPTION_LENGTH} from "../const.js";
 import {createElement} from "../utils.js";
 
-const createFilmCardTemplate = (film) => {
-  const {title, rating, release, runtime, genres, poster, description, comments, inWatchlist, isWatched, isFavorite} = film;
+const createFilmCardTemplate = (film, commentsCount) => {
+  const {title, rating, release, runtime, genres, poster, description, inWatchlist, isWatched, isFavorite} = film;
 
   const shortenedDescription = description.length > MAX_DESCRIPTION_LENGTH ? `${description.slice(0, MAX_DESCRIPTION_LENGTH)}…` : description;
 
@@ -19,7 +19,7 @@ const createFilmCardTemplate = (film) => {
       </p>
       <img src="${poster}" alt="${title}" class="film-card__poster">
       <p class="film-card__description">${shortenedDescription}</p>
-      <a class="film-card__comments">${comments.length} comments</a>
+      <a class="film-card__comments">${commentsCount} comments</a>
       <form class="film-card__controls">
         <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${addActiveClass(inWatchlist)}">Add to watchlist</button>
         <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${addActiveClass(isWatched)}">Mark as watched</button>
@@ -30,14 +30,14 @@ const createFilmCardTemplate = (film) => {
 };
 
 export default class FilmCard {
-  constructor(film) {
+  constructor(film, commentsCount) {
     this._element = null;
     this._film = film;
-
+    this._commentsCount = commentsCount;
   }
 
   getTemplate() {
-    return createFilmCardTemplate(this._film);
+    return createFilmCardTemplate(this._film, this._commentsCount);
   }
 
   getElement() {

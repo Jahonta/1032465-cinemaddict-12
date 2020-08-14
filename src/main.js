@@ -29,13 +29,24 @@ const renderFilm = (filmListElement, film) => {
   const filmCardComponent = new FilmCardView(film, comments.length);
   const filmDetailsComponent = new FilmDetailsView(film, comments);
 
+  const onEscKeyDown = (evt) => {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
+      evt.preventDefault();
+      closePopup();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
   const openPopup = () => {
     filmListElement.appendChild(filmDetailsComponent.getElement());
+    document.addEventListener(`keydown`, onEscKeyDown);
   };
 
   const closePopup = () => {
     filmListElement.removeChild(filmDetailsComponent.getElement());
+    document.removeEventListener(`keydown`, onEscKeyDown);
   };
+
 
   filmCardComponent.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, openPopup);
   filmCardComponent.getElement().querySelector(`.film-card__title`).addEventListener(`click`, openPopup);

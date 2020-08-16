@@ -1,6 +1,5 @@
 import AbstractView from "./abstract.js";
 
-
 const createStatisticsTemplate = (quantity) => {
   return (
     `<section class="footer__statistics">

@@ -75,18 +75,17 @@ if (films.length === 0) {
   render(filmsListElement, new NoFilmView().getElement());
 } else {
   if (films.length > FILMS_COUNT_PER_STEP) {
-    render(filmsListElement, new LoadMoreButtonView().getElement());
+    const loadMoreButtonComponent = new LoadMoreButtonView();
+    render(filmsListElement, loadMoreButtonComponent.getElement());
 
-    const loadMoreButton = filmsListElement.querySelector(`.films-list__show-more`);
     let renderedFilmsCount = FILMS_COUNT_PER_STEP;
-    loadMoreButton.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
+    loadMoreButtonComponent.setClickHandler(() => {
       films
       .slice(renderedFilmsCount, renderedFilmsCount + FILMS_COUNT_PER_STEP)
       .forEach((film) => renderFilm(filmsListMainElement, film));
       renderedFilmsCount += FILMS_COUNT_PER_STEP;
       if (renderedFilmsCount >= films.length) {
-        loadMoreButton.remove();
+        loadMoreButtonComponent.remove();
       }
     });
   }

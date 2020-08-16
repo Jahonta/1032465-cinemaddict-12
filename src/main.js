@@ -21,6 +21,7 @@ const FILMS_EXTRA_COUNT = 2;
 
 const films = new Array(FILMS_COUNT).fill().map(generateFilm);
 const filters = generateFilter(films);
+const bodyElement = document.querySelector(`body`);
 const headerElement = document.querySelector(`.header`);
 const mainElement = document.querySelector(`.main`);
 const footerElement = document.querySelector(`.footer`);
@@ -39,20 +40,22 @@ const renderFilm = (filmListElement, film) => {
   };
 
   const openPopup = () => {
-    filmListElement.appendChild(filmDetailsComponent.getElement());
+    bodyElement.appendChild(filmDetailsComponent.getElement());
     document.addEventListener(`keydown`, onEscKeyDown);
   };
 
   const closePopup = () => {
-    filmListElement.removeChild(filmDetailsComponent.getElement());
+    bodyElement.removeChild(filmDetailsComponent.getElement());
     document.removeEventListener(`keydown`, onEscKeyDown);
   };
 
 
-  filmCardComponent.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, openPopup);
-  filmCardComponent.getElement().querySelector(`.film-card__title`).addEventListener(`click`, openPopup);
-  filmCardComponent.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, openPopup);
-  filmDetailsComponent.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, closePopup);
+  filmCardComponent.setClickHandler(() => {
+    openPopup();
+  });
+  filmDetailsComponent.setClickHandler(() => {
+    closePopup();
+  });
 
   render(filmListElement, filmCardComponent.getElement());
 };

@@ -1,5 +1,5 @@
 import {EMOJIS} from "../const.js";
-import {createElement} from "../utils.js";
+import AbstractView from "./abstract.js";
 
 const generateTemplate = (data, template) => {
   return data.map((item) => template(item)).join(``);
@@ -154,8 +154,9 @@ const createFilmDetailsTemplate = (film, comments) => {
   );
 };
 
-export default class FilmDetails {
+export default class FilmDetails extends AbstractView {
   constructor(film, comments) {
+    super();
     this._element = null;
     this._film = film;
     this._comments = comments;
@@ -163,17 +164,5 @@ export default class FilmDetails {
 
   getTemplate() {
     return createFilmDetailsTemplate(this._film, this._comments);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

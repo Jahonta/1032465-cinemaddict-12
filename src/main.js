@@ -1,4 +1,4 @@
-import {render} from "./utils.js";
+import {render, remove, append} from "./utils/render.js";
 import ProfileView from "./view/profile.js";
 import NavigationView from "./view/navigation.js";
 import SortView from "./view/sort.js";
@@ -40,12 +40,12 @@ const renderFilm = (filmListElement, film) => {
   };
 
   const openPopup = () => {
-    bodyElement.appendChild(filmDetailsComponent.getElement());
+    append(bodyElement, filmDetailsComponent);
     document.addEventListener(`keydown`, onEscKeyDown);
   };
 
   const closePopup = () => {
-    bodyElement.removeChild(filmDetailsComponent.getElement());
+    remove(filmDetailsComponent);
     document.removeEventListener(`keydown`, onEscKeyDown);
   };
 
@@ -57,29 +57,29 @@ const renderFilm = (filmListElement, film) => {
     closePopup();
   });
 
-  render(filmListElement, filmCardComponent.getElement());
+  render(filmListElement, filmCardComponent);
 };
 
 
 // Рендерим шапку
-render(headerElement, new ProfileView(filters.history).getElement());
+render(headerElement, new ProfileView(filters.history));
 
 // Рендерим мейн
-render(mainElement, new NavigationView(filters).getElement());
-render(mainElement, new SortView().getElement());
-render(mainElement, new FilmsView().getElement());
+render(mainElement, new NavigationView(filters));
+render(mainElement, new SortView());
+render(mainElement, new FilmsView());
 
 // Рендерим списки фильмов
 const filmsElement = mainElement.querySelector(`.films`);
-render(filmsElement, new FilmsListView().getElement());
+render(filmsElement, new FilmsListView());
 
 const filmsListElement = mainElement.querySelector(`.films-list`);
 if (films.length === 0) {
-  render(filmsListElement, new NoFilmView().getElement());
+  render(filmsListElement, new NoFilmView());
 } else {
   if (films.length > FILMS_COUNT_PER_STEP) {
     const loadMoreButtonComponent = new LoadMoreButtonView();
-    render(filmsListElement, loadMoreButtonComponent.getElement());
+    render(filmsListElement, loadMoreButtonComponent);
 
     let renderedFilmsCount = FILMS_COUNT_PER_STEP;
     loadMoreButtonComponent.setClickHandler(() => {
@@ -88,13 +88,13 @@ if (films.length === 0) {
       .forEach((film) => renderFilm(filmsListMainElement, film));
       renderedFilmsCount += FILMS_COUNT_PER_STEP;
       if (renderedFilmsCount >= films.length) {
-        loadMoreButtonComponent.remove();
+        remove(loadMoreButtonComponent);
       }
     });
   }
 
-  render(filmsElement, new TopRatedFilmsView().getElement());
-  render(filmsElement, new MostCommentedFilmsView().getElement());
+  render(filmsElement, new TopRatedFilmsView());
+  render(filmsElement, new MostCommentedFilmsView());
 
   // Рендерим карточки с фильмами
   const filmsListMainElement = filmsListElement.querySelector(`.films-list__container`);
@@ -110,4 +110,4 @@ if (films.length === 0) {
 
 }
 // Рендерим футер
-render(footerElement, new StatisticsView(films.length).getElement());
+render(footerElement, new StatisticsView(films.length));

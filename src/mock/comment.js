@@ -1,5 +1,5 @@
 import {EMOJIS, NAMES, LINES} from "../const.js";
-import {getRandomInteger, generateDate} from "../utils.js";
+import {getRandomInteger, generateDate} from "../utils/common.js";
 
 const generateComment = () => {
   const text = LINES[getRandomInteger(0, LINES.length - 1)];

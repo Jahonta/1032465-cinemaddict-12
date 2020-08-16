@@ -1,5 +1,5 @@
 import {NAMES, LINES} from "../const.js";
-import {getRandomInteger, generateDate} from "../utils.js";
+import {getRandomInteger, generateDate} from "../utils/common.js";
 
 const titles = [
   `Побег из Шоушенка`,

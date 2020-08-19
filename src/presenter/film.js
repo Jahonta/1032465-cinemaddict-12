@@ -22,7 +22,6 @@ export default class Film {
     this._filmCardComponent = new FilmCardView(this._film, this._comments.length);
     this._filmDetailsComponent = new FilmDetailsView(this._film, this._comments);
 
-
     this._filmCardComponent.setClickHandler(() => {
       this._openPopup();
     });
@@ -33,6 +32,10 @@ export default class Film {
     render(this._filmsListContainer, this._filmCardComponent);
   }
 
+  destroy() {
+    remove(this._filmComponent);
+    remove(this._filmDetailsComponent);
+  }
 
   _onEscKeyDown(evt) {
     if (evt.key === `Escape` || evt.key === `Esc`) {

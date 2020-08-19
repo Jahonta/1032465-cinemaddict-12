@@ -38,6 +38,8 @@ const genres = [`Cartoon`, `Comedy`, `Drama`, `Western`, `Musical`];
 const countries = [`USA`, `UK`, `USSR`];
 const ages = [`0+`, `6+`, `12+`, `18+`];
 
+const generateId = () => Date.now() + parseInt(Math.random() * 10000, 10);
+
 const generateDescription = () => {
   const descriptionLength = getRandomInteger(1, 5);
   let description = new Array(descriptionLength).fill().reduce((acc) => acc + LINES[getRandomInteger(0, LINES.length - 1)], ``);
@@ -57,6 +59,7 @@ export const generateFilm = () => {
   const writers = new Array(2).fill().map(() => NAMES[getRandomInteger(0, NAMES.length - 1)]);
   const actors = new Array(3).fill().map(() => NAMES[getRandomInteger(0, NAMES.length - 1)]);
   return {
+    id: generateId(),
     title: titles[getRandomInteger(0, titles.length - 1)],
     originalTitle: originalTitles[getRandomInteger(0, originalTitles.length - 1)],
     poster: posters[getRandomInteger(0, posters.length - 1)],

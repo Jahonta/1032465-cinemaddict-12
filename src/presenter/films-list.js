@@ -10,6 +10,7 @@ export default class FilmsList {
   constructor(filmsListContainer) {
     this._filmsListContainer = filmsListContainer;
     this._renderedFilmsCount = FILMS_COUNT_PER_STEP;
+    this._filmPresenter = {};
 
     this._filmsListComponent = new FilmsListView();
     this._filmsListElement = this._filmsListComponent.getElement().querySelector(`.films-list__container`);
@@ -39,6 +40,7 @@ export default class FilmsList {
   _renderFilm(film) {
     const filmPresenter = new FilmPresenter(this._filmsListElement);
     filmPresenter.init(film);
+    this._filmPresenter[film.id] = filmPresenter;
   }
 
   _renderFilms(from, to) {

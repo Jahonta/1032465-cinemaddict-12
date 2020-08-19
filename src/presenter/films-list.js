@@ -1,10 +1,8 @@
 import FilmsListView from "../view/films-list.js";
 import LoadMoreButtonView from "../view/load-more-button.js";
-import FilmCardView from "../view/film-card.js";
-import FilmDetailsView from "../view/film-details.js";
 import NoFilmView from "../view/no-film.js";
-import {render, remove, append} from "../utils/render.js";
-import {generateComments} from "../mock/comment.js";
+import {render, remove} from "../utils/render.js";
+import FilmPresenter from "./film.js";
 
 const FILMS_COUNT_PER_STEP = 5;
 
@@ -39,37 +37,8 @@ export default class FilmsList {
   }
 
   _renderFilm(film) {
-    const comments = generateComments();
-    const filmCardComponent = new FilmCardView(film, comments.length);
-    const filmDetailsComponent = new FilmDetailsView(film, comments);
-
-    const onEscKeyDown = (evt) => {
-      if (evt.key === `Escape` || evt.key === `Esc`) {
-        evt.preventDefault();
-        closePopup();
-        document.removeEventListener(`keydown`, onEscKeyDown);
-      }
-    };
-
-    const openPopup = () => {
-      append(this._filmsListContainer, filmDetailsComponent);
-      document.addEventListener(`keydown`, onEscKeyDown);
-    };
-
-    const closePopup = () => {
-      remove(filmDetailsComponent);
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    };
-
-
-    filmCardComponent.setClickHandler(() => {
-      openPopup();
-    });
-    filmDetailsComponent.setClickHandler(() => {
-      closePopup();
-    });
-
-    render(this._filmsListElement, filmCardComponent);
+    const filmPresenter = new FilmPresenter(this._filmsListElement);
+    filmPresenter.init(film);
   }
 
   _renderFilms(from, to) {

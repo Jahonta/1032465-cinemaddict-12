@@ -2,14 +2,11 @@ import {EMOJIS, NAMES, LINES} from "../const.js";
 import {getRandomInteger, generateDate} from "../utils/common.js";
 
 const generateComment = () => {
-  const text = LINES[getRandomInteger(0, LINES.length - 1)];
-  const emoji = EMOJIS[getRandomInteger(0, EMOJIS.length - 1)];
-
   return {
-    emoji,
+    emoji: EMOJIS[getRandomInteger(0, EMOJIS.length - 1)],
     date: generateDate(new Date(2020, 0, 1), new Date()),
     author: NAMES[getRandomInteger(0, NAMES.length - 1)],
-    text
+    text: LINES[getRandomInteger(0, LINES.length - 1)]
   };
 };
 

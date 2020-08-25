@@ -20,7 +20,6 @@ export default class Navigation extends AbstractView {
   constructor(filters) {
     super();
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {

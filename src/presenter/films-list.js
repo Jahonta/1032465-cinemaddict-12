@@ -57,12 +57,11 @@ export default class FilmsList {
     if (this._films.length === 0) {
       this._renderNoFilm();
       return;
-    } else {
-      render(this._filmsListContainer, this._filmsListComponent);
-      if (this._films.length > FILMS_COUNT_PER_STEP) {
-        this._renderLoadMoreButton();
-      }
-      this._renderFilms(0, Math.min(this._films.length, FILMS_COUNT_PER_STEP));
     }
+    render(this._filmsListContainer, this._filmsListComponent);
+    if (this._films.length > FILMS_COUNT_PER_STEP) {
+      this._renderLoadMoreButton();
+    }
+    this._renderFilms(0, Math.min(this._films.length, FILMS_COUNT_PER_STEP));
   }
 }

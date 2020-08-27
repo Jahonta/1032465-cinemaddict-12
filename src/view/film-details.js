@@ -157,7 +157,6 @@ const createFilmDetailsTemplate = (film, comments) => {
 export default class FilmDetails extends AbstractView {
   constructor(film, comments) {
     super();
-    this._element = null;
     this._film = film;
     this._comments = comments;
     this._closePopupHandler = this._closePopupHandler.bind(this);
@@ -169,7 +168,7 @@ export default class FilmDetails extends AbstractView {
 
   _closePopupHandler(evt) {
     evt.preventDefault();
-    this._callback.click();
+    this._callback.closePopup();
   }
 
   setClosePopupHandler(callback) {

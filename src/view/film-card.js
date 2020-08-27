@@ -32,7 +32,6 @@ const createFilmCardTemplate = (film, commentsCount) => {
 export default class FilmCard extends AbstractView {
   constructor(film, commentsCount) {
     super();
-    this._element = null;
     this._film = film;
     this._commentsCount = commentsCount;
     this._openPopupHandler = this._openPopupHandler.bind(this);

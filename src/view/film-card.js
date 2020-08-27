@@ -46,10 +46,40 @@ export default class FilmCard extends AbstractView {
     this._callback.openPopup();
   }
 
+  _watchlistHandler(evt) {
+    evt.preventDefault();
+    this._callback.watchlist();
+  }
+
+  _watchedHandler(evt) {
+    evt.preventDefault();
+    this._callback.watched();
+  }
+
+  _favoriteHandler(evt) {
+    evt.preventDefault();
+    this._callback.favorite();
+  }
+
   setOpenPopupHandler(callback) {
     this._callback.openPopup = callback;
     this.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, this._openPopupHandler);
     this.getElement().querySelector(`.film-card__title`).addEventListener(`click`, this._openPopupHandler);
     this.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, this._openPopupHandler);
+  }
+
+  setWatchlistHandler(callback) {
+    this._callback.watchlist = callback;
+    this.getElement().querySelector(`.film-card__controls-item--add-to-watchlist`).addEventListener(`click`, this._watchlistHandler);
+  }
+
+  setWatchedHandler(callback) {
+    this._callback.watched = callback;
+    this.getElement().querySelector(`.film-card__controls-item--mark-as-watched`).addEventListener(`click`, this._watchedHandler);
+  }
+
+  setFavoriteHandler(callback) {
+    this._callback.favorite = callback;
+    this.getElement().querySelector(`.film-card__controls-item--favorite`).addEventListener(`click`, this._favoriteHandler);
   }
 }

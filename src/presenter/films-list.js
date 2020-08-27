@@ -2,6 +2,7 @@ import FilmsListView from "../view/films-list.js";
 import LoadMoreButtonView from "../view/load-more-button.js";
 import NoFilmView from "../view/no-film.js";
 import {render, remove} from "../utils/render.js";
+import {updateItem} from "../utils/common.js";
 import FilmPresenter from "./film.js";
 
 const FILMS_COUNT_PER_STEP = 5;
@@ -22,6 +23,11 @@ export default class FilmsList {
   init(films) {
     this._films = [...films];
     this._renderFilmsList();
+  }
+
+  _handleFilmChange(updatedFilm) {
+    this._films = updateItem(this._films, updatedFilm);
+    this._taskPresenter[updatedFilm.id].init(updatedFilm);
   }
 
   _handleLoadMoreButtonClick() {

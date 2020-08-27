@@ -1,6 +1,6 @@
 import FilmCardView from "../view/film-card.js";
 import FilmDetailsView from "../view/film-details.js";
-import {render, remove, append} from "../utils/render.js";
+import {render, remove, append, replace} from "../utils/render.js";
 import {generateComments} from "../mock/comment.js";
 
 export default class Film {
@@ -18,6 +18,10 @@ export default class Film {
 
   init(film) {
     this._film = film;
+
+    const prevFilmCardComponent = this._filmCardComponent;
+    const prevFilmDetailsComponent = this._filmDetailsComponent;
+
     this._comments = generateComments();
     this._filmCardComponent = new FilmCardView(this._film, this._comments.length);
     this._filmDetailsComponent = new FilmDetailsView(this._film, this._comments);
@@ -29,7 +33,15 @@ export default class Film {
       this._closePopup();
     });
 
-    render(this._filmsListContainer, this._filmCardComponent);
+    if (prevFilmDetailsComponent === null && prevFilmCardComponent === null) {
+      render(this._filmsListContainer, this._filmCardComponent);
+      return;
+    }
+    replace(prevFilmCardComponent, this._filmCardComponent);
+    replace(prevFilmDetailsComponent, this._filmDetailsComponent);
+
+    remove(prevFilmDetailsComponent);
+    remove(prevFilmCardComponent);
   }
 
   destroy() {

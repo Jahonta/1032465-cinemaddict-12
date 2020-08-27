@@ -60,3 +60,21 @@ export const remove = (component) => {
   component.getElement().remove();
   component.removeElement();
 };
+
+export const replace = (oldItem, newItem) => {
+  if (oldItem instanceof Abstract) {
+    oldItem = oldItem.getElement();
+  }
+
+  if (newItem instanceof Abstract) {
+    newItem = newItem.getElement();
+  }
+
+  const parentElement = oldItem.parentElement;
+
+  if (parentElement === null || !oldItem || !newItem) {
+    throw new Error(`Can't replace`);
+  }
+
+  parentElement.replaceChild(newItem, oldItem);
+};

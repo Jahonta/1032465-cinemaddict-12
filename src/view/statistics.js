@@ -11,7 +11,6 @@ export default class Statistics extends AbstractView {
   constructor(quantity) {
     super();
     this._quantity = quantity;
-    this._element = null;
   }
 
   getTemplate() {

@@ -26,7 +26,6 @@ const createProfileTemplate = (watchedFilms) => {
 export default class Profile extends AbstractView {
   constructor(watchedFilms) {
     super();
-    this._element = null;
     this._watchedFilms = watchedFilms;
   }
 

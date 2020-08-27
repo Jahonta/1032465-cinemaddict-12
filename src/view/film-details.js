@@ -160,20 +160,20 @@ export default class FilmDetails extends AbstractView {
     this._element = null;
     this._film = film;
     this._comments = comments;
-    this._clickHandler = this._clickHandler.bind(this);
+    this._closePopupHandler = this._closePopupHandler.bind(this);
   }
 
   getTemplate() {
     return createFilmDetailsTemplate(this._film, this._comments);
   }
 
-  _clickHandler(evt) {
+  _closePopupHandler(evt) {
     evt.preventDefault();
     this._callback.click();
   }
 
-  setClickHandler(callback) {
-    this._callback.click = callback;
-    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, this._clickHandler);
+  setClosePopupHandler(callback) {
+    this._callback.closePopup = callback;
+    this.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, this._closePopupHandler);
   }
 }

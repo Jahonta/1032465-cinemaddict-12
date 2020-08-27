@@ -22,10 +22,10 @@ export default class Film {
     this._filmCardComponent = new FilmCardView(this._film, this._comments.length);
     this._filmDetailsComponent = new FilmDetailsView(this._film, this._comments);
 
-    this._filmCardComponent.setClickHandler(() => {
+    this._filmCardComponent.setOpenPopupHandler(() => {
       this._openPopup();
     });
-    this._filmDetailsComponent.setClickHandler(() => {
+    this._filmDetailsComponent.setClosePopupHandler(() => {
       this._closePopup();
     });
 

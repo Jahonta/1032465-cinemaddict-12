@@ -18,16 +18,17 @@ export default class FilmsList {
     this._noFilmComponent = new NoFilmView();
     this._loadMoreButtonComponent = new LoadMoreButtonView();
     this._handleLoadMoreButtonClick = this._handleLoadMoreButtonClick.bind(this);
+    this._handleFilmChange = this._handleFilmChange.bind(this);
   }
 
   init(films) {
-    this._films = [...films];
+    this._films = films.slice();
     this._renderFilmsList();
   }
 
   _handleFilmChange(updatedFilm) {
     this._films = updateItem(this._films, updatedFilm);
-    this._taskPresenter[updatedFilm.id].init(updatedFilm);
+    this._filmPresenter[updatedFilm.id].init(updatedFilm);
   }
 
   _handleLoadMoreButtonClick() {
@@ -44,7 +45,7 @@ export default class FilmsList {
   }
 
   _renderFilm(film) {
-    const filmPresenter = new FilmPresenter(this._filmsListElement);
+    const filmPresenter = new FilmPresenter(this._filmsListElement, this._handleFilmChange);
     filmPresenter.init(film);
     this._filmPresenter[film.id] = filmPresenter;
   }

@@ -35,6 +35,9 @@ export default class FilmCard extends AbstractView {
     this._film = film;
     this._commentsCount = commentsCount;
     this._openPopupHandler = this._openPopupHandler.bind(this);
+    this._watchlistHandler = this._watchlistHandler.bind(this);
+    this._watchedHandler = this._watchedHandler.bind(this);
+    this._favoriteHandler = this._favoriteHandler.bind(this);
   }
 
   getTemplate() {

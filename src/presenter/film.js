@@ -45,6 +45,15 @@ export default class Film {
     this._filmDetailsComponent.setClosePopupHandler(() => {
       this._closePopup();
     });
+    this._filmDetailsComponent.setWatchlistHandler(() => {
+      this._watchlistClickHandler();
+    });
+    this._filmDetailsComponent.setWatchedHandler(() => {
+      this._watchedClickHandler();
+    });
+    this._filmDetailsComponent.setFavoriteHandler(() => {
+      this._favoriteClickHandler();
+    });
 
     if (prevFilmDetailsComponent === null && prevFilmCardComponent === null) {
       render(this._filmsListContainer, this._filmCardComponent);

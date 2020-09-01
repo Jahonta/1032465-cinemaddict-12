@@ -160,6 +160,9 @@ export default class FilmDetails extends AbstractView {
     this._film = film;
     this._comments = comments;
     this._closePopupHandler = this._closePopupHandler.bind(this);
+    this._watchlistHandler = this._watchlistHandler.bind(this);
+    this._watchedHandler = this._watchedHandler.bind(this);
+    this._favoriteHandler = this._favoriteHandler.bind(this);
   }
 
   getTemplate() {
